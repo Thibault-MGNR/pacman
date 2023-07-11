@@ -1,0 +1,4 @@
+.obj
+*.o
+pac_man.exe
+.vscode
