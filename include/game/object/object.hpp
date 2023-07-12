@@ -9,21 +9,9 @@
     #include <memory>
 
     namespace Game {
-        struct Texture_data {
-            std::array<int, 2> position;
-            std::array<int, 2> dimension;
-            std::array<int, 2> crop_dimension;
-            std::array<int, 2> crop_position;
-            std::shared_ptr<SDL_Texture> texture{};
-        };
-
         class Object {
             public:
                 Object() = delete;
-
-            
-            protected:
-                Texture_data texture;
 
         };
     }
