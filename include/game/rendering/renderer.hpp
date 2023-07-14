@@ -10,6 +10,7 @@
                 Renderer() = delete;
                 Renderer(Window &window);
                 std::shared_ptr<SDL_Renderer> get_renderer() const;
+                SDL_Renderer *get_renderer_ptr() const;
             
             private:
                 Window &_window;

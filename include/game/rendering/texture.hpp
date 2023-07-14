@@ -17,16 +17,18 @@
 
         class Texture{
             public:
-                Texture() = delete;
-                Texture(Renderer &renderer, std::string path);
-                Texture(Renderer &renderer, std::string path, Texture_data data);
+                Texture();
+                Texture(std::shared_ptr<Renderer> renderer, std::string path);
+                Texture(std::shared_ptr<Renderer> renderer, std::string path, Texture_data data);
                 std::shared_ptr<SDL_Texture> get_texture() const noexcept;
+                void draw() const;
+                void draw_all() const;
             
             private:
                 std::shared_ptr<SDL_Texture> _texture;
                 std::string _path;
                 Texture_data _data;
-                Renderer &_renderer;
+                std::shared_ptr<Renderer> _renderer;
                 void initialize();
         };
     }
