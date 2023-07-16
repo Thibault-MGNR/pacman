@@ -1,10 +1,11 @@
 #include <iostream>
 #include <memory>
+#include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <game/game.hpp>
 #include <game/map/map.hpp>
-#include <string>
+#include <game/events/events_pool.hpp>
 
 int main(){
     SDL_Init(SDL_INIT_VIDEO);
@@ -15,20 +16,26 @@ int main(){
     window_param.position = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
 
     Game::Window window{window_param};
-
     Game::Renderer renderer{window};
-
-    Game::Texture texture{std::make_shared<Game::Renderer>(renderer), "data/spritesheet.png"};
-
     Game::Map map{std::make_shared<Game::Renderer>(renderer)};
 
     bool quit = false;
-    SDL_Event event;
+    auto event = std::make_shared<SDL_Event>();
+    // SDL_Event event;
+
+    auto a = [&quit](){
+        std::cout << "quit" << std::endl;
+        quit = true;
+    };
+
+    Game::Events_pool event_pool;
+    std::shared_ptr<int> type = std::make_shared<int>(event->type);
+    event_pool.add_event(type, SDL_QUIT, a);
+
     while (!quit) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                quit = true;
-            }
+        while (SDL_PollEvent(event.get())) {
+            std::cout << "event type = " << event->type << " --> ";
+            event_pool.check_events();
         }
 
         SDL_RenderClear(renderer.get_renderer_ptr());

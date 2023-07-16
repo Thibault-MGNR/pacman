@@ -8,6 +8,8 @@ void Game::Texture::initialize(){
     this->_texture = std::shared_ptr<SDL_Texture>{SDL_CreateTextureFromSurface(this->_renderer.get()->get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
 }
 
+Game::Texture::Texture(std::shared_ptr<Renderer> renderer) : _renderer(renderer){}
+
 Game::Texture::Texture(std::shared_ptr<Renderer> renderer, std::string path) : _renderer(renderer), _path(path){
     this->initialize();
 }
@@ -32,8 +34,8 @@ void Game::Texture::draw() const{
     srcRect.y = this->_data.crop_position[1];
 
     SDL_Rect dstRect;
-    dstRect.h = this->_data.dimension[1];
     dstRect.w = this->_data.dimension[0];
+    dstRect.h = this->_data.dimension[1];
     dstRect.x = this->_data.position[0];
     dstRect.y = this->_data.position[1];
 

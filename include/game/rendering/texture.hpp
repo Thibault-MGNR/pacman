@@ -18,13 +18,14 @@
         class Texture{
             public:
                 Texture();
+                Texture(std::shared_ptr<Renderer> renderer);
                 Texture(std::shared_ptr<Renderer> renderer, std::string path);
                 Texture(std::shared_ptr<Renderer> renderer, std::string path, Texture_data data);
                 std::shared_ptr<SDL_Texture> get_texture() const noexcept;
                 void draw() const;
                 void draw_all() const;
             
-            private:
+            protected:
                 std::shared_ptr<SDL_Texture> _texture;
                 std::string _path;
                 Texture_data _data;
