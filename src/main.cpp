@@ -23,17 +23,16 @@ int main(){
     auto event = std::make_shared<SDL_Event>();
 
     auto a = [&quit](){
-        std::cout << "quit" << std::endl;
         quit = true;
     };
 
     Game::Events_pool event_pool;
-    std::shared_ptr<int> type = std::make_shared<int>(event->type);
+    
+    std::shared_ptr<uint32_t> type(&event->type);
     event_pool.add_event(type, SDL_QUIT, a);
 
     while (!quit) {
         while (SDL_PollEvent(event.get())) {
-            *type = event->type;
             event_pool.check_events();
         }
 

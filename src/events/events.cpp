@@ -4,7 +4,7 @@
 
 namespace Game{
 
-    Events::Events(std::shared_ptr<int> event, int flag, std::function<void()> func) : _flag(flag), _func(func){
+    Events::Events(std::shared_ptr<uint32_t> event, uint32_t flag, std::function<void()> func) : _flag(flag), _func(func){
         this->_event = std::move(event);
     }
 

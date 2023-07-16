@@ -9,7 +9,7 @@
         class Events_pool {
             public:
                 Events_pool();
-                void add_event(std::shared_ptr<int> event, int flag, std::function<void()> func);
+                void add_event(std::shared_ptr<uint32_t> event, uint32_t flag, std::function<void()> func);
                 void check_events();
             private:
                 std::vector<std::shared_ptr<Events>> _pool;
