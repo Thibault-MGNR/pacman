@@ -21,7 +21,6 @@ int main(){
 
     bool quit = false;
     auto event = std::make_shared<SDL_Event>();
-    // SDL_Event event;
 
     auto a = [&quit](){
         std::cout << "quit" << std::endl;
@@ -34,7 +33,7 @@ int main(){
 
     while (!quit) {
         while (SDL_PollEvent(event.get())) {
-            std::cout << "event type = " << event->type << " --> ";
+            *type = event->type;
             event_pool.check_events();
         }
 
