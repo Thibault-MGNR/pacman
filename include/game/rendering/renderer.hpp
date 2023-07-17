@@ -9,6 +9,7 @@
             public:
                 Renderer() = delete;
                 Renderer(Window &window);
+                Renderer operator=(const Renderer &renderer) const;
                 std::shared_ptr<SDL_Renderer> get_renderer() const;
                 SDL_Renderer *get_renderer_ptr() const;
             

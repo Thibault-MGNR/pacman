@@ -21,7 +21,7 @@ OBJS := $(patsubst $(SRC)\%.cpp,$(OBJ)\%.o,$(SRCS))
 
 all: $(OUT)
 
-release: CFLAGS = -Wall -O2 -D NDEBUG
+release: CFLAGS = -Wall -Wextra -O2 -D NDEBUG
 release: clean
 release: $(OUT)
 

@@ -7,13 +7,13 @@
     namespace Game {
         class Events {
             public:
-                Events(std::shared_ptr<uint32_t> event, uint32_t flag, std::function<void()> func);
+                Events(const uint32_t &event, uint32_t flag, std::function<void()> func);
                 Events(const Events& other);
                 int get_event() const noexcept;
                 void check_and_execute() const;
             
             private:
-                std::shared_ptr<uint32_t> _event;
+                const uint32_t &_event;
                 uint32_t _flag;
                 std::function<void()> _func;
         };

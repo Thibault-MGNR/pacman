@@ -18,7 +18,6 @@
                 Window(const Window_parameter param);
                 std::shared_ptr<SDL_Window> get_window() const noexcept;
 
-            
             private:
                 Window_parameter _param;
                 std::shared_ptr<SDL_Window> _window;

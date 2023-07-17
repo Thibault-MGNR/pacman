@@ -12,4 +12,8 @@ namespace Game {
     std::shared_ptr<SDL_Renderer> Renderer::get_renderer() const{
         return this->_renderer;
     }
+
+    Renderer Renderer::operator=(const Renderer &renderer) const{
+        return Renderer{renderer};
+    }
 }

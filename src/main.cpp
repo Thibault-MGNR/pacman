@@ -17,10 +17,10 @@ int main(){
 
     Game::Window window{window_param};
     Game::Renderer renderer{window};
-    Game::Map map{std::make_shared<Game::Renderer>(renderer)};
+    Game::Map map{renderer};
 
     bool quit = false;
-    auto event = std::make_shared<SDL_Event>();
+    auto event = std::make_unique<SDL_Event>();
 
     auto a = [&quit](){
         quit = true;
@@ -28,8 +28,7 @@ int main(){
 
     Game::Events_pool event_pool;
     
-    std::shared_ptr<uint32_t> type(&event->type);
-    event_pool.add_event(type, SDL_QUIT, a);
+    event_pool.add_event(event->type, SDL_QUIT, a);
 
     while (!quit) {
         while (SDL_PollEvent(event.get())) {

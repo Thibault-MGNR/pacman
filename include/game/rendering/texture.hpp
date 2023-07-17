@@ -17,11 +17,10 @@
 
         class Texture{
             public:
-                Texture();
-                Texture(std::shared_ptr<Renderer> renderer);
-                Texture(std::shared_ptr<Renderer> renderer, std::string path);
-                Texture(std::shared_ptr<Renderer> renderer, std::string path, Texture_data data);
-                std::shared_ptr<SDL_Texture> get_texture() const noexcept;
+                // Texture();
+                Texture(const Renderer &renderer);
+                Texture(const Renderer &renderer, std::string path);
+                Texture(const Renderer &renderer, std::string path, Texture_data data);
                 void draw() const;
                 void draw_all() const;
             
@@ -29,7 +28,7 @@
                 std::shared_ptr<SDL_Texture> _texture;
                 std::string _path;
                 Texture_data _data;
-                std::shared_ptr<Renderer> _renderer;
+                const Renderer &_renderer;
                 void initialize();
         };
     }

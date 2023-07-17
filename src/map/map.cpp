@@ -1,7 +1,7 @@
 #include <game/map/map.hpp>
 
 namespace Game {
-    Map::Map(std::shared_ptr<Renderer> renderer) : Texture::Texture(renderer) {
+    Map::Map(const Renderer &renderer) : Texture(renderer) {
         this->_map_init = std::array<std::array<int, 21>, 27>{{
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -38,7 +38,6 @@ namespace Game {
         this->_data.dimension = {700, 768};
         this->_data.position = {0, 0};
         this->_path = "data/spritesheet2.png";
-        this->_renderer = renderer;
         initialize();
     }
 
