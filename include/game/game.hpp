@@ -12,7 +12,6 @@
     #include <memory>
 
     namespace Game {
-
         class Game {
             public:
                 Game();

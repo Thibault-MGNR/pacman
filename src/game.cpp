@@ -1,4 +1,5 @@
 #include <game/game.hpp>
+#include <iostream>
 
 /*
 int main(){
@@ -29,7 +30,7 @@ namespace Game {
         this->_renderer = std::make_unique<Renderer>(Renderer{*this->_window});
         this->_map = std::make_unique<Map>(Map{*this->_renderer});
         this->_run = true;
-
+        this->_events = std::make_unique<SDL_Event>();
         this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){ this->quit();});
     }
 

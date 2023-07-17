@@ -3,8 +3,7 @@
 #include <iostream>
 
 namespace Game{
-
-    Events::Events(const uint32_t &event, uint32_t flag, std::function<void()> func) : 
+    Events::Events(const uint32_t &event, const uint32_t flag, std::function<void()> func) : 
         _event(event), 
         _flag(flag), 
         _func(func){}

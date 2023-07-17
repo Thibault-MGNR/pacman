@@ -1,5 +1,6 @@
 #include <game/events/events_pool.hpp>
 #include <iterator>
+#include <iostream>
 
 namespace Game {
     Events_pool::Events_pool(){}
