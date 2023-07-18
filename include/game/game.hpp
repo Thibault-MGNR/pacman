@@ -22,7 +22,7 @@
                 std::unique_ptr<Window> _window;
                 std::unique_ptr<Renderer> _renderer;
                 std::unique_ptr<Map> _map;
-                std::shared_ptr<SDL_Event> _events;
+                std::unique_ptr<SDL_Event> _events;
                 Events_pool _events_pool;
                 bool _run;
                 void quit();

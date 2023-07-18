@@ -1,11 +1,13 @@
 #include <game/rendering/texture.hpp>
 #include <game/rendering/surface.hpp>
+#include <game/errors/SDL_error_handler.hpp>
 #include <iostream>
 
 namespace Game {
     void Texture::initialize(){
         Surface surface{this->_path};
         this->_texture = std::shared_ptr<SDL_Texture>{SDL_CreateTextureFromSurface(this->_renderer.get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
+        check_sdl_error();
     }
 
     Texture::Texture(const Renderer &renderer) : _renderer(renderer){}
@@ -20,6 +22,7 @@ namespace Game {
 
     void Texture::draw_all() const{
         SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), NULL, NULL);
+        check_sdl_error();
     }
 
     void Texture::draw() const{
@@ -36,5 +39,6 @@ namespace Game {
         dstRect.y = this->_data.position[1];
 
         SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), &srcRect, &dstRect);
+        check_sdl_error();
     }
 }

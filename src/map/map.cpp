@@ -31,8 +31,8 @@ namespace Game {
             {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         }};
+        
         this->_map = this->_map_init;
-
         this->_data.crop_dimension = {226, 248};
         this->_data.crop_position = {227, 0};
         this->_data.dimension = {700, 768};

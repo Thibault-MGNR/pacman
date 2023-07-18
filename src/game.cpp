@@ -1,27 +1,10 @@
 #include <game/game.hpp>
-#include <iostream>
-
-/*
-int main(){
-    while (!quit) {
-        while (SDL_PollEvent(event.get())) {
-            event_pool.check_events();
-        }
-
-        SDL_RenderClear(renderer.get_renderer_ptr());
-        map.draw();
-        SDL_RenderPresent(renderer.get_renderer_ptr());
-    }
-
-    SDL_Quit();
-
-    return EXIT_SUCCESS;
-}
-*/
+#include <game/errors/SDL_error_handler.hpp>
 
 namespace Game {
     Game::Game(){
         SDL_Init(SDL_INIT_VIDEO);
+        check_sdl_error();
         Window_parameter window_param;
         window_param.title = "Pac-man";
         window_param.size = {700, 1000};
@@ -31,7 +14,7 @@ namespace Game {
         this->_map = std::make_unique<Map>(Map{*this->_renderer});
         this->_run = true;
         this->_events = std::make_unique<SDL_Event>();
-        this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){ this->quit();});
+        this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
     }
 
     void Game::run(){
@@ -41,6 +24,7 @@ namespace Game {
             }
 
             SDL_RenderClear(this->_renderer->get_renderer_ptr());
+            check_sdl_error();
             this->_map->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
         }

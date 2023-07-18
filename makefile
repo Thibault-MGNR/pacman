@@ -7,6 +7,7 @@ LIBSFLAGS = -lSDL2 -lSDL2_image
 CFLAGS =
 DEFINES =
 INCLUDE = include/
+TEMPLATE = template/
 
 # directories
 BIN = bin
@@ -37,13 +38,12 @@ rebuild: $(OUT)
 test: $(TEST_OUT)
 
 clean:
-	@-del /q $(OBJ)\*.o 2> nul
 	@echo Suppression des fichiers .o dans le dossier $(OBJ)
+	@-del /q $(OBJ)\*.o 2> nul
 
 $(OUT): $(OBJS)
 	@echo Compilation
 	@$(CXX) $(OBJS) -I $(INCLUDE) -L $(LIB) -o $(BIN)\$(OUT) $(LIBSFLAGS) $(CFLAGS) $(DEFINES)
-	@echo ok
 
 $(OBJ)\%.o: $(SRC)\%.cpp
 	$(CXX) -o $@ -c $< -I $(INCLUDE) $(DEFINES) $(CFLAGS)
