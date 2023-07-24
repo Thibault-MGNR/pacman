@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace Game {
-    void Texture::initialize(){
+    void Texture::initialize_texture(){
         Surface surface{this->_path};
         this->_texture = std::shared_ptr<SDL_Texture>{Check(SDL_CreateTextureFromSurface, this->_renderer.get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
     }
@@ -12,11 +12,11 @@ namespace Game {
     Texture::Texture(const Renderer &renderer) : _renderer(renderer){}
 
     Texture::Texture(const Renderer &renderer, std::string path) : _renderer(renderer), _path(path){
-        this->initialize();
+        this->initialize_texture();
     }
 
     Texture::Texture(const Renderer &renderer, std::string path, Texture_data data) : _renderer(renderer), _path(path), _data(data){
-        this->initialize();
+        this->initialize_texture();
     }
 
     void Texture::draw_all() const{
@@ -25,18 +25,23 @@ namespace Game {
         };
     }
 
-    void Texture::draw() const{
-        SDL_Rect srcRect;
-        srcRect.w = this->_data.crop_dimension[0];
-        srcRect.h = this->_data.crop_dimension[1];
-        srcRect.x = this->_data.crop_position[0];
-        srcRect.y = this->_data.crop_position[1];
+    const SDL_Rect Texture::set_rect(const std::array<int, 2> &dim, const std::array<int, 2> &pos) const{
+        SDL_Rect rect;
+        rect.w = dim[0];
+        rect.h = dim[1];
+        rect.x = pos[0];
+        rect.y = pos[1];
 
-        SDL_Rect dstRect;
-        dstRect.w = this->_data.dimension[0];
-        dstRect.h = this->_data.dimension[1];
-        dstRect.x = this->_data.position[0];
-        dstRect.y = this->_data.position[1];
+        return rect;
+    }
+
+    void Texture::draw() const{
+        _draw();
+    }
+
+    void Texture::_draw() const{
+        const SDL_Rect srcRect = set_rect(this->_data.crop_dimension, this->_data.crop_position);
+        const SDL_Rect dstRect = set_rect(this->_data.dimension, this->_data.position);
 
         if(SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), &srcRect, &dstRect) < 0){
             Exit_with_error();

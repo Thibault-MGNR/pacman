@@ -38,7 +38,7 @@ namespace Game {
         this->_data.dimension = {700, 768};
         this->_data.position = {0, 0};
         this->_path = "data/spritesheet2.png";
-        initialize();
+        initialize_texture();
     }
 
     std::array<std::array<int, 21>, 27> Map::get_map(){
