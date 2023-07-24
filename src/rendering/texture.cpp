@@ -5,17 +5,13 @@
 
 namespace Game {
     void Texture::initialize_texture(){
-        Surface surface{this->_path};
+        Surface surface{this->_data.path};
         this->_texture = std::shared_ptr<SDL_Texture>{Check(SDL_CreateTextureFromSurface, this->_renderer.get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
     }
 
     Texture::Texture(const Renderer &renderer) : _renderer(renderer){}
 
-    Texture::Texture(const Renderer &renderer, std::string path) : _renderer(renderer), _path(path){
-        this->initialize_texture();
-    }
-
-    Texture::Texture(const Renderer &renderer, std::string path, Texture_data data) : _renderer(renderer), _path(path), _data(data){
+    Texture::Texture(const Renderer &renderer, Texture_data data) : _renderer(renderer), _data(data){
         this->initialize_texture();
     }
 

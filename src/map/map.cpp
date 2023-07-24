@@ -37,7 +37,7 @@ namespace Game {
         this->_data.crop_position = {227, 0};
         this->_data.dimension = {700, 768};
         this->_data.position = {0, 0};
-        this->_path = "data/spritesheet2.png";
+        this->_data.path = "data/spritesheet2.png";
         initialize_texture();
     }
 

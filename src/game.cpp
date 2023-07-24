@@ -3,19 +3,8 @@
 
 namespace Game {
     Game::Game(){
-        if(SDL_Init(SDL_INIT_VIDEO) < 0){
-            Exit_with_error();
-        }
-        Window_parameter window_param;
-        window_param.title = "Pac-man";
-        window_param.size = {700, 1000};
-        window_param.position = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
-        this->_window = std::make_unique<Window>(Window{window_param});
-        this->_renderer = std::make_unique<Renderer>(Renderer{*this->_window});
-        this->_map = std::make_unique<Map>(Map{*this->_renderer});
-        this->_run = true;
-        this->_events = std::make_unique<SDL_Event>();
-        this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
+        init_sdl();
+        init_modules();
     }
 
     void Game::run(){
@@ -27,6 +16,7 @@ namespace Game {
             if(SDL_RenderClear(this->_renderer->get_renderer_ptr()) < 0){
                 Exit_with_error();
             }
+            
             this->_map->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
         }
@@ -38,5 +28,28 @@ namespace Game {
 
     Game::~Game(){
         SDL_Quit();
+    }
+
+    void Game::init_window(){
+        Window_parameter window_param;
+        window_param.title = "Pac-man";
+        window_param.size = {700, 1000};
+        window_param.position = {SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED};
+        this->_window = std::make_unique<Window>(Window{window_param});
+    }
+
+    void Game::init_sdl(){
+        if(SDL_Init(SDL_INIT_VIDEO) < 0){
+            Exit_with_error();
+        }
+    }
+
+    void Game::init_modules(){
+        init_window();
+        this->_renderer = std::make_unique<Renderer>(Renderer{*this->_window});
+        this->_map = std::make_unique<Map>(Map{*this->_renderer});
+        this->_run = true;
+        this->_events = std::make_unique<SDL_Event>();
+        this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
     }
 }

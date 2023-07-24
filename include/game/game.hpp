@@ -8,7 +8,7 @@
     #include <game/rendering/texture.hpp>
     #include <game/events/events_pool.hpp>
     #include <game/map/map.hpp>
-    #include <game/object/object.hpp>
+    #include <game/object/character/character.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
@@ -27,6 +27,9 @@
                 Events_pool _events_pool;
                 bool _run;
                 void quit();
+                void init_window();
+                void init_sdl();
+                void init_modules();
         };
     }
 
