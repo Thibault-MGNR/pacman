@@ -8,6 +8,7 @@
     #include <game/rendering/texture.hpp>
     #include <game/events/events_pool.hpp>
     #include <game/map/map.hpp>
+    #include <game/object/object.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
