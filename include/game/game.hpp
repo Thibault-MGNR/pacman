@@ -9,6 +9,7 @@
     #include <game/events/events_pool.hpp>
     #include <game/map/map.hpp>
     #include <game/object/character/character.hpp>
+    #include <game/rendering/fps_manager.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
@@ -24,6 +25,7 @@
                 std::unique_ptr<Renderer> _renderer;
                 std::unique_ptr<Map> _map;
                 std::unique_ptr<SDL_Event> _events;
+                FPS_manager _fps_manager;
                 Events_pool _events_pool;
                 bool _run;
                 void quit();

@@ -16,9 +16,11 @@ namespace Game {
             if(SDL_RenderClear(this->_renderer->get_renderer_ptr()) < 0){
                 Exit_with_error();
             }
-            
+
             this->_map->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
+
+            this->_fps_manager.manage();
         }
     }
 
@@ -51,5 +53,6 @@ namespace Game {
         this->_run = true;
         this->_events = std::make_unique<SDL_Event>();
         this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
+        this->_fps_manager = FPS_manager{60};
     }
 }
