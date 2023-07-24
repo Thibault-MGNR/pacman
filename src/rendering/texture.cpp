@@ -6,8 +6,7 @@
 namespace Game {
     void Texture::initialize(){
         Surface surface{this->_path};
-        this->_texture = std::shared_ptr<SDL_Texture>{SDL_CreateTextureFromSurface(this->_renderer.get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
-        check_sdl_error();
+        this->_texture = std::shared_ptr<SDL_Texture>{Check(SDL_CreateTextureFromSurface, this->_renderer.get_renderer_ptr(), surface.get_surface().get()), SDL_DestroyTexture};
     }
 
     Texture::Texture(const Renderer &renderer) : _renderer(renderer){}
@@ -21,8 +20,9 @@ namespace Game {
     }
 
     void Texture::draw_all() const{
-        SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), NULL, NULL);
-        check_sdl_error();
+        if(SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), NULL, NULL) < 0){
+            Exit_with_error();
+        };
     }
 
     void Texture::draw() const{
@@ -38,7 +38,8 @@ namespace Game {
         dstRect.x = this->_data.position[0];
         dstRect.y = this->_data.position[1];
 
-        SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), &srcRect, &dstRect);
-        check_sdl_error();
+        if(SDL_RenderCopy(this->_renderer.get_renderer_ptr(), this->_texture.get(), &srcRect, &dstRect) < 0){
+            Exit_with_error();
+        }
     }
 }

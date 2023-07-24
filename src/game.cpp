@@ -3,8 +3,9 @@
 
 namespace Game {
     Game::Game(){
-        SDL_Init(SDL_INIT_VIDEO);
-        check_sdl_error();
+        if(SDL_Init(SDL_INIT_VIDEO) < 0){
+            Exit_with_error();
+        }
         Window_parameter window_param;
         window_param.title = "Pac-man";
         window_param.size = {700, 1000};
@@ -23,8 +24,9 @@ namespace Game {
                 this->_events_pool.check_events();
             }
 
-            SDL_RenderClear(this->_renderer->get_renderer_ptr());
-            check_sdl_error();
+            if(SDL_RenderClear(this->_renderer->get_renderer_ptr()) < 0){
+                Exit_with_error();
+            }
             this->_map->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
         }

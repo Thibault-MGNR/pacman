@@ -4,7 +4,7 @@ VERSION = 0.1.0
 # compiler
 CXX = g++
 LIBSFLAGS = -lSDL2 -lSDL2_image
-CFLAGS =
+CFLAGS = -std=c++17
 DEFINES =
 INCLUDE = include/
 TEMPLATE = template/
@@ -43,10 +43,10 @@ clean:
 
 $(OUT): $(OBJS)
 	@echo Compilation
-	@$(CXX) $(OBJS) -I $(INCLUDE) -L $(LIB) -o $(BIN)\$(OUT) $(LIBSFLAGS) $(CFLAGS) $(DEFINES)
+	@$(CXX) $(OBJS) -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) -o $(BIN)\$(OUT) $(LIBSFLAGS) $(CFLAGS) $(DEFINES)
 
 $(OBJ)\%.o: $(SRC)\%.cpp
-	$(CXX) -o $@ -c $< -I $(INCLUDE) $(DEFINES) $(CFLAGS)
+	$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) $(DEFINES) $(CFLAGS)
 
 info:
 	@echo -----------------------------------------------------

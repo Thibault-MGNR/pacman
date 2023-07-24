@@ -6,6 +6,7 @@
 #include <game/game.hpp>
 #include <game/map/map.hpp>
 #include <game/events/events_pool.hpp>
+#include <game/errors/SDL_error_handler.hpp>
 
 int main(){
     Game::Game game;
