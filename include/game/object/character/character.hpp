@@ -14,12 +14,11 @@
         class Character : public Object{
             public:
                 Character() = delete;
-                Character(const Renderer &renderer);
-                Character(const Renderer &renderer, bool is_diplayable);
-                Character(const Renderer &renderer, Texture_data data);
-                Character(const Renderer &renderer, Texture_data data, bool is_diplayable);
+                Character(const Renderer &renderer, bool is_diplayable = true);
+                Character(const Renderer &renderer, Texture_data data, bool is_diplayable = true);
 
                 void set_movement(const Movement mvt) noexcept;
+                void draw() override;
 
             private:
                 Movement _next_movement;

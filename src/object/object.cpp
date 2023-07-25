@@ -2,11 +2,7 @@
 #include <vector>
 
 namespace Game {
-    Object::Object(const Renderer &renderer) : Texture(renderer){}
-
     Object::Object(const Renderer &renderer, bool is_diplayable) : Texture(renderer), _is_displayable(is_diplayable){}
-
-    Object::Object(const Renderer &renderer, Texture_data data) : Texture(renderer, data){}
 
     Object::Object(const Renderer &renderer, Texture_data data, bool is_diplayable) : Texture(renderer, data), _is_displayable(is_diplayable){}
 
@@ -23,7 +19,7 @@ namespace Game {
         return false;
     }
 
-    void Object::draw() const{
+    void Object::draw(){
         if(this->_is_displayable)
             _draw();
     }

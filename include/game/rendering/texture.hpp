@@ -21,7 +21,7 @@
                 // Texture();
                 Texture(const Renderer &renderer);
                 Texture(const Renderer &renderer, Texture_data data);
-                virtual void draw() const;
+                virtual void draw();
                 void draw_all() const;
             
             protected:

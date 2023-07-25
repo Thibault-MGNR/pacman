@@ -31,7 +31,7 @@ namespace Game {
         return rect;
     }
 
-    void Texture::draw() const{
+    void Texture::draw(){
         _draw();
     }
 
