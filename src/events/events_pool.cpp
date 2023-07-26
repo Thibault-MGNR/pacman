@@ -5,10 +5,6 @@
 namespace Game {
     Events_pool::Events_pool(){}
 
-    void Events_pool::add_event(const uint32_t &event, uint32_t flag, std::function<void()> func){
-        this->_pool.push_back(std::make_shared<Events>(event, flag, func));
-    }
-
     void Events_pool::check_events(){
         auto event{std::begin(this->_pool)};
 

@@ -3,7 +3,7 @@
 #include <iostream>
 
 namespace Game{
-    Events::Events(const uint32_t &event, const uint32_t flag, std::function<void()> func) : 
+    Events::Events(const int &event, const int flag, std::function<void()> func) : 
         _event(event), 
         _flag(flag), 
         _func(func){}
@@ -15,7 +15,7 @@ namespace Game{
     }
 
     void Events::check_and_execute() const{
-        if(this->_event == this->_flag){
+        if(!(this->_event ^ this->_flag)){
             this->_func();
         }
     }

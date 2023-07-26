@@ -1,5 +1,6 @@
 #include <game/game.hpp>
 #include <game/object/character/character.hpp>
+#include <iostream>
 
 namespace Game {
     Character::Character(const Renderer &renderer, bool is_diplayable) : Object(renderer, is_diplayable){}
@@ -14,10 +15,10 @@ namespace Game {
         if(this->_is_displayable){
             switch (this->_next_movement){
                 case Movement::FORWARD:
-                    this->_data.position[1] += this->speed;
+                    this->_data.position[1] -= this->speed;
                     break;
                 case Movement::BACKWARD:
-                    this->_data.position[1] -= this->speed;
+                    this->_data.position[1] += this->speed;
                     break;
                 case Movement::LEFT:
                     this->_data.position[0] -= this->speed;

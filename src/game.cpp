@@ -18,6 +18,7 @@ namespace Game {
             }
 
             this->_map->draw();
+            this->_pac_man->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
 
             this->_fps_manager.manage();
@@ -51,8 +52,22 @@ namespace Game {
         this->_renderer = std::make_unique<Renderer>(Renderer{*this->_window});
         this->_map = std::make_unique<Map>(Map{*this->_renderer});
         this->_run = true;
-        this->_events = std::make_unique<SDL_Event>();
+        this->_events = std::make_shared<SDL_Event>();
         this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
         this->_fps_manager = FPS_manager{60};
+        init_pacman();
+    }
+
+    void Game::init_pacman(){
+        Texture_data data = {
+            {100, 100},
+            {50, 50},
+            {15, 15},
+            {455, 0},
+            "data/spritesheet2.png"
+        };
+
+        this->_pac_man = std::make_unique<Pac_man>(Pac_man{*this->_renderer, data});
+        this->_pac_man->init_events(this->_events_pool, this->_events);
     }
 }

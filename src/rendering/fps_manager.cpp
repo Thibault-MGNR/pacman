@@ -8,7 +8,6 @@ namespace Game {
     FPS_manager::FPS_manager(const int max_FPS) : _max_FPS(max_FPS){
         this->_last_ticks = SDL_GetTicks();
         this->_timeout = 1000 / this->_max_FPS;
-        std::cout << this->_timeout << std::endl;
     }
 
     void FPS_manager::manage(){

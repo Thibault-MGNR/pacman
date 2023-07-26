@@ -4,16 +4,21 @@
     #include <vector>
     #include <functional>
     #include <SDL2/SDL.h>
-
+    
     namespace Game {
         class Events_pool {
             public:
                 Events_pool();
-                void add_event(const uint32_t &event, uint32_t flag, std::function<void()> func);
                 void check_events();
+
+                template<typename T>
+                void add_event(const T &event, int flag, std::function<void()> func);
+
             private:
                 std::vector<std::shared_ptr<Events>> _pool;
         };
+
+        #include <events/events_pool.tpp>
     }
 
 #endif

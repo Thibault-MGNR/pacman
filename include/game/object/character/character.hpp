@@ -22,7 +22,7 @@
 
             private:
                 Movement _next_movement;
-                int speed;
+                int speed = 3;
         };
     }
 #endif
