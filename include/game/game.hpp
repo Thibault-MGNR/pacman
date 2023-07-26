@@ -24,7 +24,7 @@
             private:
                 std::unique_ptr<Window> _window;
                 std::unique_ptr<Renderer> _renderer;
-                std::unique_ptr<Map> _map;
+                std::shared_ptr<Map> _map;
                 std::shared_ptr<SDL_Event> _events;
                 FPS_manager _fps_manager;
                 Events_pool _events_pool;

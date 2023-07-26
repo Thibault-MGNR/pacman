@@ -2,9 +2,9 @@
 #include <vector>
 
 namespace Game {
-    Object::Object(const Renderer &renderer, bool is_diplayable) : Texture(renderer), _is_displayable(is_diplayable){}
+    Object::Object(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Texture(renderer), _is_displayable(is_diplayable), _map(map){}
 
-    Object::Object(const Renderer &renderer, Texture_data data, bool is_diplayable) : Texture(renderer, data), _is_displayable(is_diplayable){}
+    Object::Object(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable) : Texture(renderer, data), _is_displayable(is_diplayable), _map(map){}
 
     bool Object::is_touching(Object &obj){
         std::vector<bool> is_overlap;

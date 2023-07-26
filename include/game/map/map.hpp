@@ -9,12 +9,12 @@
             public:
                 Map() = delete;
                 Map(const Renderer &renderer);
-                std::array<std::array<int, 21>, 27> get_map();
-                void set_map(std::array<std::array<int, 21>, 27> map);
+                std::array<std::array<int, 28>, 31> get_map();
+                void set_map(std::array<std::array<int, 28>, 31> map);
             
             private:
-                std::array<std::array<int, 21>, 27> _map_init;
-                std::array<std::array<int, 21>, 27> _map;
+                std::array<std::array<int, 28>, 31> _map_init;
+                std::array<std::array<int, 28>, 31> _map;
         };
     }
 

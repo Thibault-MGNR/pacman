@@ -50,7 +50,7 @@ namespace Game {
     void Game::init_modules(){
         init_window();
         this->_renderer = std::make_unique<Renderer>(Renderer{*this->_window});
-        this->_map = std::make_unique<Map>(Map{*this->_renderer});
+        this->_map = std::make_shared<Map>(Map{*this->_renderer});
         this->_run = true;
         this->_events = std::make_shared<SDL_Event>();
         this->_events_pool.add_event(this->_events->type, SDL_QUIT, [this](){this->quit();});
@@ -59,15 +59,8 @@ namespace Game {
     }
 
     void Game::init_pacman(){
-        Texture_data data = {
-            {100, 100},
-            {50, 50},
-            {15, 15},
-            {455, 0},
-            "data/spritesheet2.png"
-        };
 
-        this->_pac_man = std::make_unique<Pac_man>(Pac_man{*this->_renderer, data});
+        this->_pac_man = std::make_unique<Pac_man>(Pac_man{*this->_renderer, this->_map});
         this->_pac_man->init_events(this->_events_pool, this->_events);
     }
 }

@@ -4,9 +4,9 @@
 #include <iostream>
 
 namespace Game{
-    Playable_player::Playable_player(const Renderer &renderer, bool is_diplayable) : Character(renderer, is_diplayable){}
+    Playable_player::Playable_player(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Character(renderer, map, is_diplayable){}
 
-    Playable_player::Playable_player(const Renderer &renderer, Texture_data data, bool is_diplayable) : Character(renderer, data, is_diplayable){}
+    Playable_player::Playable_player(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable) : Character(renderer, data, map, is_diplayable){}
 
     void Playable_player::set_events(Events_pool &event_pool, std::shared_ptr<SDL_Event> event){
         auto forward = [this](){this->set_movement(Movement::FORWARD);};
