@@ -55,14 +55,11 @@ namespace Game {
 
     void Map::draw(){
         _draw();
-        SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 0, 255, 0, 255);
         for(int x = 0; x < 28; x++){
             for(int y = 0; y < 31; y++){
                 SDL_Rect rect = get_map_sprite_rect(x, y).rect;
-                SDL_RenderDrawRect(this->_renderer.get_renderer_ptr(), &rect);
             }
         }
-        SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 0, 0, 0, 255);
     }
 
     Map_sprite Map::get_map_sprite_rect(int x, int y){

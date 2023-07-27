@@ -4,53 +4,82 @@
 #include <array>
 
 namespace Game {
-    Character::Character(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, map, is_diplayable){}
+    Character::Character(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, map, is_diplayable){
+        this->_desired_movement = Movement::IDLE;
+        this->_next_movement = Movement::IDLE;
+    }
     
-    Character::Character(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, data, map, is_diplayable){}
+    Character::Character(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, data, map, is_diplayable){
+        this->_desired_movement = Movement::IDLE;
+        this->_next_movement = Movement::IDLE;
+    }
 
     void Character::set_movement(const Movement mvt) noexcept{
-        this->_next_movement = mvt;
+        this->_desired_movement = mvt;
     }
 
     void Character::draw(){
         if(this->_is_displayable){
             for(int i = 0; i < this->speed; i++){
                 std::array<int, 2> last_pos = this->_data.position;
-
-                switch (this->_next_movement){
-                    case Movement::FORWARD:
-                        this->_data.position[1]--;
-                        break;
-                    
-                    case Movement::BACKWARD:
-                        this->_data.position[1]++;
-                        break;
-                    
-                    case Movement::LEFT:
-                        this->_data.position[0]--;
-                        break;
-                    
-                    case Movement::RIGHT:
-                        this->_data.position[0]++;
-                        break;
-                    
-                    default:
-                        break;                
-                }
-                if(map_collision()){
-                    set_movement(Movement::IDLE);
-                    this->_data.position = last_pos;
+                if(this->_desired_movement != Movement::IDLE){
+                    move(this->_desired_movement);
+                    if(map_collision(this->_desired_movement)){
+                        this->_data.position = last_pos;
+                        process_next_movement_with_collision(last_pos);
+                    } else {
+                        this->_next_movement = this->_desired_movement;
+                        this->_desired_movement = Movement::IDLE;
+                    }
+                } else {
+                    process_next_movement_with_collision(last_pos);
                 }
             }
             _draw();
         }
     }
 
-    bool Character::map_collision(){
+    void Character::process_next_movement_with_collision(std::array<int, 2> last_pos){
+        move(this->_next_movement);
+        if(map_collision(this->_next_movement)){
+            this->_data.position = last_pos;
+            this->_next_movement = Movement::IDLE;
+            this->_desired_movement = Movement::IDLE;
+        }
+    }
+
+    bool Character::can_move(Movement movement){
+        return false;
+    }
+
+    void Character::move(Movement movement){
+        switch (movement){
+            case Movement::FORWARD:
+                this->_data.position[1]--;
+                break;
+            
+            case Movement::BACKWARD:
+                this->_data.position[1]++;
+                break;
+            
+            case Movement::LEFT:
+                this->_data.position[0]--;
+                break;
+            
+            case Movement::RIGHT:
+                this->_data.position[0]++;
+                break;
+            
+            default:
+                break;                
+        }
+    }
+
+    bool Character::map_collision(Movement mov){
         int half = this->_data.dimension[1] / 2;
         int x_m = (int)((float)(this->_data.position[0] + half) / 3.125) / 8;
         int y_m = (int)((float)(this->_data.position[1] + half) / 3.125) / 8;
-        switch (this->_next_movement){
+        switch (mov){
             case Movement::FORWARD:
                 if(check_map_collision_forward(x_m, y_m))
                     return true;
@@ -115,12 +144,8 @@ namespace Game {
             int x = sprites[i].x;
             int y = sprites[i].y;
             if(this->_map->get_map()[y][x] == 1){
-                if(test_collision(sprites[i].rect)){
+                if(test_collision(sprites[i].rect))
                     collision = true;
-                    SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 255, 0, 0, 255);
-                    SDL_RenderDrawRect(this->_renderer.get_renderer_ptr(), &sprites[i].rect);
-                    SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 0, 0, 0, 255);
-                }
             }
         }
         return collision;
