@@ -23,6 +23,7 @@
                 Texture(const Renderer &renderer, Texture_data data);
                 virtual void draw();
                 void draw_all() const;
+                Texture_data get_data();
             
             protected:
                 std::shared_ptr<SDL_Texture> _texture;
@@ -30,6 +31,10 @@
                 const Renderer &_renderer;
                 void initialize_texture();
                 void _draw() const;
+                bool test_collision(const Texture_data a, const Texture_data b);
+                bool test_collision(std::shared_ptr<Texture> a);
+                bool test_collision(const Texture_data a);
+                bool test_collision(const SDL_Rect a);
             
             private:
                 const SDL_Rect set_rect(const std::array<int, 2> &dim, const std::array<int, 2> &pos) const;

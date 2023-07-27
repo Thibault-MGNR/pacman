@@ -24,6 +24,11 @@
                 bool map_collision();
                 Movement _next_movement;
                 const int speed = 2;
+                bool check_map_collision_forward(int x_m, int y_m);
+                bool check_map_collision_backward(int x_m, int y_m);
+                bool check_map_collision_right(int x_m, int y_m);
+                bool check_map_collision_left(int x_m, int y_m);
+                bool check_map_sprites_collisions(std::array<Map_sprite, 3> sprites);
         };
     }
 #endif

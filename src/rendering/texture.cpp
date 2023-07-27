@@ -43,4 +43,36 @@ namespace Game {
             Exit_with_error();
         }
     }
+
+    Texture_data Texture::get_data(){
+        return this->_data;
+    }
+
+    bool Texture::test_collision(const Texture_data a, const Texture_data b){
+        std::vector<bool> is_overlap;
+        is_overlap.push_back(a.position[0] < b.position[0] + b.dimension[0]);
+        is_overlap.push_back(a.position[0] + a.dimension[0] > b.position[0]);
+        is_overlap.push_back(a.position[1] < b.position[1] + b.dimension[1]);
+        is_overlap.push_back(a.dimension[1] + a.position[1] > b.position[1]);
+
+        if(is_overlap == std::vector<bool>{true, true, true, true})
+            return true;
+
+        return false;
+    }
+
+    bool Texture::test_collision(const Texture_data a){
+        return test_collision(this->_data, a);
+    }
+
+    bool Texture::test_collision(std::shared_ptr<Texture> a){
+        return test_collision(this->_data, a->get_data());
+    }
+
+    bool Texture::test_collision(const SDL_Rect a){
+        Texture_data data;
+        data.position = {a.x, a.y};
+        data.dimension = {a.w, a.h};
+        return test_collision(data);
+    }
 }

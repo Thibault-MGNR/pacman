@@ -52,4 +52,26 @@ namespace Game {
     void Map::set_map(std::array<std::array<int, 28>, 31> map){
         this->_map = map;
     }
+
+    void Map::draw(){
+        _draw();
+        SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 0, 255, 0, 255);
+        for(int x = 0; x < 28; x++){
+            for(int y = 0; y < 31; y++){
+                SDL_Rect rect = get_map_sprite_rect(x, y).rect;
+                SDL_RenderDrawRect(this->_renderer.get_renderer_ptr(), &rect);
+            }
+        }
+        SDL_SetRenderDrawColor(this->_renderer.get_renderer_ptr(), 0, 0, 0, 255);
+    }
+
+    Map_sprite Map::get_map_sprite_rect(int x, int y){
+        Map_sprite sprite;
+        float x_ = x * 8 * 3.125;
+        float y_ = y * 8 * 3.125;
+        sprite.rect = SDL_Rect{(int)x_, (int)y_, 25, 25};
+        sprite.x = x;
+        sprite.y = y;
+        return sprite;
+    }
 }
