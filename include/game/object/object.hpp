@@ -1,10 +1,9 @@
 #ifndef __OBJECT__
     #define __OBJECT__
-    #include <game/object/reward/reward.hpp>
-    #include <game/object/widget/widget.hpp>
     #include <game/rendering/texture.hpp>
     #include <game/map/map.hpp>
     #include <string>
+    #include <array>
     #include <memory>
 
     namespace Game {
@@ -15,6 +14,7 @@
                 Object(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
                 bool is_touching(Object &obj);
                 void draw() override;
+                std::array<int, 2> get_map_pos();
             
             protected:
                 bool _is_displayable;

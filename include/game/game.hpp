@@ -11,6 +11,7 @@
     #include <game/object/character/character.hpp>
     #include <game/rendering/fps_manager.hpp>
     #include <game/object/character/pac_man.hpp>
+    #include <game/object/reward/coins.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
@@ -29,12 +30,14 @@
                 FPS_manager _fps_manager;
                 Events_pool _events_pool;
                 std::unique_ptr<Pac_man> _pac_man;
+                std::unique_ptr<Coins> _coins;
                 bool _run;
                 void quit();
                 void init_window();
                 void init_sdl();
                 void init_modules();
                 void init_pacman();
+                void init_coins();
         };
     }
 

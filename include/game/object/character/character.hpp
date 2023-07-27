@@ -16,7 +16,6 @@
                 Character() = delete;
                 Character(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable = true);
                 Character(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
-
                 void set_movement(const Movement mvt) noexcept;
                 void draw() override;
 
@@ -30,7 +29,6 @@
                 bool check_map_collision_right(int x_m, int y_m);
                 bool check_map_collision_left(int x_m, int y_m);
                 bool check_map_sprites_collisions(std::array<Map_sprite, 3> sprites);
-                bool can_move(Movement movement);
                 void move(Movement movement);
                 void process_next_movement_with_collision(std::array<int, 2> last_pos);
         };

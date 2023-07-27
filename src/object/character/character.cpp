@@ -47,11 +47,7 @@ namespace Game {
             this->_desired_movement = Movement::IDLE;
         }
     }
-
-    bool Character::can_move(Movement movement){
-        return false;
-    }
-
+    
     void Character::move(Movement movement){
         switch (movement){
             case Movement::FORWARD:
