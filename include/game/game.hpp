@@ -12,6 +12,7 @@
     #include <game/rendering/fps_manager.hpp>
     #include <game/object/character/pac_man.hpp>
     #include <game/object/reward/coins.hpp>
+    #include <game/object/reward/pacgum.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
@@ -31,6 +32,7 @@
                 Events_pool _events_pool;
                 std::unique_ptr<Pac_man> _pac_man;
                 std::unique_ptr<Coins> _coins;
+                std::unique_ptr<Pacgum> _pacgums;
                 bool _run;
                 void quit();
                 void init_window();
@@ -38,6 +40,7 @@
                 void init_modules();
                 void init_pacman();
                 void init_coins();
+                void init_pacgums();
         };
     }
 

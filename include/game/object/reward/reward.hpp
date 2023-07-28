@@ -9,7 +9,7 @@
                 Reward() = delete;
                 Reward(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable = true);
                 Reward(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
-                void draw_widget(int x_pm, int y_pm);
+                void draw_reward(int x_pm, int y_pm);
             
             protected:
                 int _reward_id;

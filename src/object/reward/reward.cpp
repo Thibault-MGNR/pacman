@@ -9,7 +9,7 @@ namespace Game {
         this->_reward_id = -1;
     }
 
-    void Reward::draw_widget(int x_pm, int y_pm){
+    void Reward::draw_reward(int x_pm, int y_pm){
         for(int x = 0; x < 28; x++){
             for(int y = 0; y < 31; y++){
                 auto map = this->_map->get_map();

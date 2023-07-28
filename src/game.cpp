@@ -21,7 +21,8 @@ namespace Game {
             int pac_m_x = this->_pac_man->get_map_pos()[0];
             int pac_m_y = this->_pac_man->get_map_pos()[1];
 
-            this->_coins->draw_widget(pac_m_x, pac_m_y);
+            this->_coins->draw_reward(pac_m_x, pac_m_y);
+            this->_pacgums->draw_reward(pac_m_x, pac_m_y);
             this->_pac_man->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
 
@@ -61,6 +62,7 @@ namespace Game {
         this->_fps_manager = FPS_manager{60};
         init_pacman();
         init_coins();
+        init_pacgums();
     }
 
     void Game::init_pacman(){
@@ -71,5 +73,9 @@ namespace Game {
 
     void Game::init_coins(){
         this->_coins = std::make_unique<Coins>(Coins{*this->_renderer, this->_map});
+    }
+
+    void Game::init_pacgums(){
+        this->_pacgums = std::make_unique<Pacgum>(Pacgum{*this->_renderer, this->_map});
     }
 }
