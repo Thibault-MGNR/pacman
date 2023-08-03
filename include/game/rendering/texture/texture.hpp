@@ -1,5 +1,6 @@
 #ifndef __TEXTURE__
     #define __TEXTURE__
+    /*
     #include <game/rendering/surface.hpp>
     #include <game/rendering/renderer.hpp>
     #include <memory>
@@ -18,7 +19,7 @@
 
         class Texture{
             public:
-                // Texture();
+                Texture() = delete;
                 Texture(const Renderer &renderer);
                 Texture(const Renderer &renderer, Texture_data data);
                 virtual void draw();
@@ -39,6 +40,6 @@
             private:
                 const SDL_Rect set_rect(const std::array<int, 2> &dim, const std::array<int, 2> &pos) const;
         };
-    }
+    } */
 
 #endif

@@ -1,8 +1,9 @@
-#include <game/rendering/texture.hpp>
+#include <game/rendering/texture/texture.hpp>
 #include <game/rendering/surface.hpp>
 #include <game/errors/SDL_error_handler.hpp>
 #include <iostream>
 
+/*
 namespace Game {
     void Texture::initialize_texture(){
         Surface surface{this->_data.path};
@@ -76,3 +77,5 @@ namespace Game {
         return test_collision(data);
     }
 }
+
+*/

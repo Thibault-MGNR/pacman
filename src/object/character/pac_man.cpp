@@ -10,6 +10,7 @@ namespace Game {
             "data/spritesheet2.png"
         };
         initialize_texture();
+        this->collisions_set.insert(2);
     }
 
     void Pac_man::init_events(Events_pool &event_pool, std::shared_ptr<SDL_Event> event){

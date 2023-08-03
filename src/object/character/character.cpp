@@ -2,16 +2,19 @@
 #include <game/object/character/character.hpp>
 #include <iostream>
 #include <array>
+#include <iterator>
 
 namespace Game {
     Character::Character(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, map, is_diplayable){
         this->_desired_movement = Movement::IDLE;
         this->_next_movement = Movement::IDLE;
+        this->collisions_set.insert(1);
     }
     
     Character::Character(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable) : Object(renderer, data, map, is_diplayable){
         this->_desired_movement = Movement::IDLE;
         this->_next_movement = Movement::IDLE;
+        this->collisions_set.insert(1);
     }
 
     void Character::set_movement(const Movement mvt) noexcept{
@@ -139,9 +142,13 @@ namespace Game {
         for(int i = 0; i < 3; i++){
             int x = sprites[i].x;
             int y = sprites[i].y;
-            if(this->_map->get_map()[y][x] == 1){
-                if(test_collision(sprites[i].rect))
-                    collision = true;
+            auto collisions_id{std::begin(this->collisions_set)};
+            while(collisions_id != std::end(this->collisions_set)){
+                if(this->_map->get_map()[y][x] == *collisions_id){
+                    if(test_collision(sprites[i].rect))
+                        collision = true;
+                }
+                collisions_id++;
             }
         }
         return collision;

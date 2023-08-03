@@ -1,7 +1,7 @@
 #ifndef __MAP__
     #define __MAP__
     #include <array>
-    #include <game/rendering/texture.hpp>
+    #include <game/rendering/texture/texture.hpp>
     #include <game/rendering/renderer.hpp>
     #include <SDL2/SDL.h>
 

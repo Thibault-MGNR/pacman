@@ -1,6 +1,6 @@
 #ifndef __OBJECT__
     #define __OBJECT__
-    #include <game/rendering/texture.hpp>
+    #include <game/rendering/texture/texture.hpp>
     #include <game/map/map.hpp>
     #include <string>
     #include <array>

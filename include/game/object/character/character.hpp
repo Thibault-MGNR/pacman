@@ -1,6 +1,7 @@
 #ifndef __CHARACTER__
     #define __CHARACTER__
     #include <game/object/object.hpp>
+    #include <set>
 
     namespace Game {
         enum class Movement{
@@ -18,6 +19,9 @@
                 Character(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
                 void set_movement(const Movement mvt) noexcept;
                 void draw() override;
+            
+            protected:
+                std::set<int> collisions_set;
 
             private:
                 bool map_collision(Movement mov);
