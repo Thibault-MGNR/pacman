@@ -1,45 +1,21 @@
-#ifndef __TEXTURE__
-    #define __TEXTURE__
-    /*
-    #include <game/rendering/surface.hpp>
-    #include <game/rendering/renderer.hpp>
-    #include <memory>
-    #include <string>
-    #include <array>
-    #include <SDL2/SDL.h>
+#pragma once
+#include <variant>
+#include <memory>
+#include <SDL2/SDL.h>
+#include <game/rendering/texture/texture_common.hpp>
+#include <game/rendering/texture/static_texture.hpp>
+#include <game/rendering/texture/animation_texture.hpp>
 
-    namespace Game {
-        struct Texture_data {
-            std::array<int, 2> position;
-            std::array<int, 2> dimension;
-            std::array<int, 2> crop_dimension;
-            std::array<int, 2> crop_position;
-            std::string path;
-        };
+namespace Game {
+    using Texture_data = std::variant<Texture_animation_data, Texture_static_data>;
 
-        class Texture{
-            public:
-                Texture() = delete;
-                Texture(const Renderer &renderer);
-                Texture(const Renderer &renderer, Texture_data data);
-                virtual void draw();
-                void draw_all() const;
-                Texture_data get_data();
-            
-            protected:
-                std::shared_ptr<SDL_Texture> _texture;
-                Texture_data _data;
-                const Renderer &_renderer;
-                void initialize_texture();
-                void _draw() const;
-                bool test_collision(const Texture_data a, const Texture_data b);
-                bool test_collision(std::shared_ptr<Texture> a);
-                bool test_collision(const Texture_data a);
-                bool test_collision(const SDL_Rect a);
-            
-            private:
-                const SDL_Rect set_rect(const std::array<int, 2> &dim, const std::array<int, 2> &pos) const;
-        };
-    } */
+    class Texture {
+        public:
+            Texture() = delete;
+            Texture(Texture_data data);
+            SDL_Texture* get_sdl_texture();
 
-#endif
+        private:
+            std::variant<std::unique_ptr<Static_texture>, std::unique_ptr<Animation_texture>> _texture;
+    };
+}

@@ -21,8 +21,6 @@
 
         struct Texture_common_data {
             Renderer &renderer;
-            std::array<int, 2> position;
-            std::array<int, 2> dimension;
             std::string path;
         };
 
@@ -46,14 +44,13 @@
             public:
                 Texture_common() = delete;
                 Texture_common(data_type data);
-                virtual ~Texture_common() = 0;
-                virtual void draw() = 0;
+                virtual ~Texture_common();
                 data_type get_data();
+                virtual SDL_Texture* get_sdl_texture() = 0;
 
             protected:
-                virtual void _draw(data_type data) = 0;
+                std::shared_ptr<SDL_Texture> _texture;
                 data_type _data;
-                bool test_collision(std::shared_ptr<Texture_common_data> data);
         };
         
         #include <rendering/texture/texture_common.tpp>
