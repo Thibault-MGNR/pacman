@@ -4,12 +4,17 @@
     #include <array>
 
     namespace Game {
-        class Animation_texture : public Texture_common<Texture_animation_data>{
+        class Animation_texture : public Texture{
             public:
-                Animation_texture(Texture_animation_data data);
+                Animation_texture(const Renderer &renderer,  Texture_animation_data data);
                 SDL_Texture* get_sdl_texture() override;
-                SDL_Rect get_cropped_rectangle() override;
-                const Renderer& get_renderer() override;
+                SDL_Rect get_src_rect() override;
+
+            private:
+                void _update_frame();
+                int _current_number_frame;
+                Texture_placement _current_frame;
+                std::array<int, 2> _sprites_sheet_grid;
         };
     }
 

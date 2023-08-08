@@ -5,7 +5,7 @@
     #include <game/rendering/renderer.hpp>
     #include <game/rendering/surface.hpp>
     #include <game/rendering/window.hpp>
-    #include <game/rendering/texture/texture.hpp>
+    #include <game/rendering/texture/texture_common.hpp>
     #include <game/events/events_pool.hpp>
     #include <game/map/map.hpp>
     #include <game/object/character/character.hpp>

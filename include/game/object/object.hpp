@@ -1,10 +1,10 @@
 #ifndef __OBJECT__
     #define __OBJECT__
-    #include <game/rendering/texture/texture.hpp>
-    #include <game/map/map.hpp>
-    #include <string>
     #include <array>
     #include <memory>
+    #include <string>
+    #include <game/rendering/texture/texture_common.hpp>
+    #include <game/map/map.hpp>
 
     namespace Game {
         class Object{
@@ -14,6 +14,7 @@
                 bool test_collision(Object &obj);
                 bool test_collision(SDL_Rect rect);
                 std::array<int, 2> get_map_pos();
+                Texture_placement get_texture_placement() const;
                 virtual void draw();
             
             protected:

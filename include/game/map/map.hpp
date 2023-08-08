@@ -2,7 +2,7 @@
     #define __MAP__
     #include <array>
     #include <memory>
-    #include <game/rendering/texture/texture.hpp>
+    #include <game/rendering/texture/texture_common.hpp>
     #include <game/rendering/renderer.hpp>
     #include <SDL2/SDL.h>
 

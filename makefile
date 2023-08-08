@@ -18,7 +18,8 @@ OUT = pac_man
 
 # source files
 SRCS := $(shell dir /s /b $(SRC)\*.cpp)
-OBJS := $(patsubst $(SRC)\%.cpp,$(OBJ)\%.o,$(SRCS))
+#OBJS := $(patsubst $(SRC)/%.cpp,$(OBJ)/%.o,$(SRCS))
+OBJS := $(patsubst %.cpp, $(OBJ)/%.o, $(notdir $(SRCS)))
 
 all: $(OUT)
 
@@ -43,10 +44,25 @@ clean:
 
 $(OUT): $(OBJS)
 	@echo Compilation
-	@$(CXX) $(OBJS) -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) -o $(BIN)\$(OUT) $(LIBSFLAGS) $(CFLAGS) $(DEFINES)
+	@$(CXX) $(OBJ)/*.o -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) -o $(BIN)\$(OUT) $(LIBSFLAGS) $(CFLAGS) $(DEFINES)
 
-$(OBJ)\%.o: $(SRC)\%.cpp
-	$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) $(DEFINES) $(CFLAGS)
+$(OBJ)/%.o: $(SRC)/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
+
+$(OBJ)/%.o: $(SRC)/*/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
+
+$(OBJ)/%.o: $(SRC)/*/*/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
+
+$(OBJ)/%.o: $(SRC)/*/*/*/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
+
+$(OBJ)/%.o: $(SRC)/*/*/*/*/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
+
+$(OBJ)/%.o: $(SRC)/*/*/*/*/*/%.cpp
+	@$(CXX) -o $@ -c $< -I $(INCLUDE) -I $(TEMPLATE) -L $(LIB) $(DEFINES) $(CFLAGS) $(LIBSFLAGS)
 
 info:
 	@echo -----------------------------------------------------

@@ -3,12 +3,11 @@
     #include <game/rendering/texture/texture_common.hpp>
 
     namespace Game {
-        class Static_texture : public Texture_common<Texture_static_data>{
+        class Static_texture : public Texture{
             public:
-                Static_texture(Texture_static_data data);
+                Static_texture(const Renderer &renderer, Texture_static_data data);
                 SDL_Texture* get_sdl_texture() override;
-                SDL_Rect get_cropped_rectangle() override;
-                const Renderer& get_renderer() override;
+                SDL_Rect get_src_rect() override;
         };
     }
 

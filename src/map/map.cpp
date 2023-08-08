@@ -1,5 +1,6 @@
 #include <game/map/map.hpp>
 #include <game/errors/SDL_error_handler.hpp>
+#include <game/rendering/texture/static_texture.hpp>
 
 namespace Game {
     Map::Map(const Renderer &renderer) {
@@ -39,14 +40,14 @@ namespace Game {
         
         this->_map = this->_map_init;
 
-        Texture_static_data data{renderer};
+        Texture_static_data data;
         data.crop_dimension = {224, 248};
         data.crop_position = {228, 0};
         this->_texture_placement.dimension = {700, 775};
         this->_texture_placement.position = {0, 0};
         data.path = "data/spritesheet2.png";
 
-        this->_texture = std::make_unique<Texture>(data);
+        this->_texture = std::make_unique<Static_texture>(renderer, data);
     }
 
     std::array<std::array<int, 28>, 31> Map::get_map(){

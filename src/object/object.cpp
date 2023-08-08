@@ -6,12 +6,29 @@
 namespace Game {
     Object::Object(std::shared_ptr<Map> map, bool is_diplayable) : _is_displayable(is_diplayable), _map(map){}
 
+    Texture_placement Object::get_texture_placement() const{
+        return this->_texture_placement;
+    }
+
     bool Object::test_collision(Object &obj){
-        return false; // à modifier
+        Texture_placement tp = obj.get_texture_placement();
+        SDL_Rect rect = set_rect(tp.dimension, tp.position);
+        return test_collision(rect);
     }
 
     bool Object::test_collision(SDL_Rect rect){
-        return false; // à modifier
+        std::vector<bool> is_overlap;
+        Texture_placement a = this->_texture_placement;
+        Texture_placement b = set_tp_from_sdl_rect(rect);
+        is_overlap.push_back(a.position[0] < b.position[0] + b.dimension[0]);
+        is_overlap.push_back(a.position[0] + a.dimension[0] > b.position[0]);
+        is_overlap.push_back(a.position[1] < b.position[1] + b.dimension[1]);
+        is_overlap.push_back(a.dimension[1] + a.position[1] > b.position[1]);
+
+        if(is_overlap == std::vector<bool>{true, true, true, true})
+            return true;
+
+        return false;
     }
 
     void Object::draw(){
