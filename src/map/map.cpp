@@ -1,7 +1,8 @@
 #include <game/map/map.hpp>
+#include <game/errors/SDL_error_handler.hpp>
 
 namespace Game {
-    Map::Map(const Renderer &renderer) : Texture(renderer) {
+    Map::Map(const Renderer &renderer) {
         this->_map_init = std::array<std::array<int, 28>, 31>{{
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1},
@@ -37,12 +38,15 @@ namespace Game {
         }};
         
         this->_map = this->_map_init;
-        this->_data.crop_dimension = {224, 248};
-        this->_data.crop_position = {228, 0};
-        this->_data.dimension = {700, 775};
-        this->_data.position = {0, 0};
-        this->_data.path = "data/spritesheet2.png";
-        initialize_texture();
+
+        Texture_static_data data{renderer};
+        data.crop_dimension = {224, 248};
+        data.crop_position = {228, 0};
+        this->_texture_placement.dimension = {700, 775};
+        this->_texture_placement.position = {0, 0};
+        data.path = "data/spritesheet2.png";
+
+        this->_texture = std::make_unique<Texture>(data);
     }
 
     std::array<std::array<int, 28>, 31> Map::get_map(){
@@ -54,7 +58,12 @@ namespace Game {
     }
 
     void Map::draw(){
-        _draw();
+        const SDL_Rect srcRect = this->_texture->get_src_rect();
+        const SDL_Rect dstRect = set_rect(this->_texture_placement.dimension, this->_texture_placement.position);
+
+        if(SDL_RenderCopy(this->_texture->get_renderer().get_renderer_ptr(), this->_texture->get_sdl_texture(), &srcRect, &dstRect) < 0){
+            Exit_with_error();
+        }
     }
 
     Map_sprite Map::get_map_sprite_rect(int x, int y){

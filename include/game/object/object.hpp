@@ -10,16 +10,18 @@
         class Object{
             public:
                 Object() = delete;
-                Object(Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
-                bool is_touching(Object &obj);
+                Object(std::shared_ptr<Map> map, bool is_diplayable = true);
+                bool test_collision(Object &obj);
+                bool test_collision(SDL_Rect rect);
                 std::array<int, 2> get_map_pos();
-                void draw() const;
+                virtual void draw();
             
             protected:
                 bool _is_displayable;
                 std::shared_ptr<Map> _map;
+                std::unique_ptr<Texture> _texture;
                 void _draw() const;
-
+                Texture_placement _texture_placement;
         };
     }
 

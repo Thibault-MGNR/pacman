@@ -13,7 +13,9 @@ namespace Game {
         public:
             Texture() = delete;
             Texture(Texture_data data);
+            SDL_Rect get_src_rect();
             SDL_Texture* get_sdl_texture();
+            const Renderer& get_renderer();
 
         private:
             std::variant<std::unique_ptr<Static_texture>, std::unique_ptr<Animation_texture>> _texture;

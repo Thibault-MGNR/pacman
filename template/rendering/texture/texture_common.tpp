@@ -1,7 +1,10 @@
-Texture_common::Texture_common(data_type data) : _data(data){}
+template <typename T>
+Texture_common<T>::Texture_common(T data) : _data(data){}
 
-virtual Texture_common::~Texture_common(){}
+template <typename T>
+Texture_common<T>::~Texture_common(){}
 
-data_type Texture_common::get_data(){
+template <typename T>
+T Texture_common<T>::get_data(){
     return this->_data;
 }

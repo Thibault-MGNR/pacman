@@ -7,6 +7,8 @@
             public:
                 Static_texture(Texture_static_data data);
                 SDL_Texture* get_sdl_texture() override;
+                SDL_Rect get_cropped_rectangle() override;
+                const Renderer& get_renderer() override;
         };
     }
 

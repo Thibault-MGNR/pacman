@@ -6,9 +6,7 @@
     namespace Game{
         class Playable_player : public Character{
             public:
-                Playable_player() = delete;
-                Playable_player(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable = true);
-                Playable_player(const Renderer &renderer, Texture_data data, std::shared_ptr<Map> map, bool is_diplayable = true);
+                using Character::Character;
             
             protected:
                 void set_events(Events_pool &event_pool, std::shared_ptr<SDL_Event> event);
