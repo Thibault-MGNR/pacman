@@ -16,7 +16,7 @@ namespace Game {
         this->_sprites_sheet_grid[1] = (animation_data.sprites_number / this->_sprites_sheet_grid[0]) + 1;
         this->_current_frame.dimension[0] = static_cast<float>(animation_data.sprites_dim[0]);
         this->_current_frame.dimension[1] = static_cast<float>(animation_data.sprites_dim[1]);
-        _update_frame();
+        update_frame();
     }
 
     SDL_Texture* Animation_texture::get_sdl_texture() {
@@ -25,13 +25,14 @@ namespace Game {
 
     SDL_Rect Animation_texture::get_src_rect() {
         int delta_time = SDL_GetTicks() - this->_frame_tick;
-        if(delta_time > get_animation_data().srites_delay)
-            _update_frame();
+        if(delta_time > get_animation_data().srites_delay){
+            update_frame();
+        }
         
         return set_rect(this->_current_frame.dimension, this->_current_frame.position);
     }
 
-    void Animation_texture::_update_frame() {
+    void Animation_texture::update_frame() {
         switch(get_animation_data().read_dir){
             case Sprites_read_direction::TOP_RIGHT_TO_BOTTOM_LEFT:
                 _update_frame_TRBL();

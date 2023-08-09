@@ -1,7 +1,8 @@
 #ifndef __CHARACTER__
     #define __CHARACTER__
-    #include <game/object/object.hpp>
     #include <set>
+    #include <array>
+    #include <game/object/object.hpp>
 
     namespace Game {
         enum class Movement{
@@ -20,8 +21,14 @@
             
             protected:
                 std::set<int> collisions_set{1};
+                bool _has_motion_responsive_texture;
+                std::array<Texture_animation_data, 5> _motion_responsive_texture_animation_data;
+                std::array<Texture_static_data, 5> _motion_responsive_texture_static_data;
+                void _update();
 
             private:
+                void _update_static_texture();
+                void _update_animated_texture();
                 bool map_collision(Movement mov);
                 Movement _next_movement = Movement::IDLE;
                 Movement _desired_movement = Movement::IDLE;

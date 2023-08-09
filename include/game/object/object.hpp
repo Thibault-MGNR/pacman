@@ -4,6 +4,8 @@
     #include <memory>
     #include <string>
     #include <game/rendering/texture/texture_common.hpp>
+    #include <game/rendering/texture/animation_texture.hpp>
+    #include <game/rendering/texture/static_texture.hpp>
     #include <game/map/map.hpp>
 
     namespace Game {

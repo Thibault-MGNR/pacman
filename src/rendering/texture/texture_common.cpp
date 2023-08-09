@@ -32,26 +32,26 @@ namespace Game {
     }
 
     Texture::Texture(const Renderer &renderer, Texture_animation_data data) : _renderer(renderer){
-        this->_type_of_texture = Type::ANIMATED;
+        this->_type_of_texture = Texture_type::ANIMATED;
         this->_data_animation = data;
     }
 
     Texture::Texture(const Renderer &renderer, Texture_static_data data) : _renderer(renderer){
-        this->_type_of_texture = Type::STATIC;
+        this->_type_of_texture = Texture_type::STATIC;
         this->_data_static = data;
     }
 
     Texture::~Texture(){}
 
     void Texture::set_data(Texture_animation_data data){
-        if(this->_type_of_texture == Type::ANIMATED){
+        if(this->_type_of_texture == Texture_type::ANIMATED){
             this->_data_animation = data;
             update_texture();
         }
     }
 
     void Texture::set_data(Texture_static_data data){
-        if(this->_type_of_texture == Type::STATIC){
+        if(this->_type_of_texture == Texture_type::STATIC){
             this->_data_static = data;
             update_texture();
         }
@@ -69,5 +69,9 @@ namespace Game {
 
     const Renderer& Texture::get_renderer(){
         return this->_renderer;
+    }
+
+    Texture_type Texture::get_type(){
+        return this->_type_of_texture;
     }
 }

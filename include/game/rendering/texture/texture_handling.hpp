@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 namespace Game {
     enum class Sprites_read_direction{
@@ -17,14 +18,11 @@ namespace Game {
     };
 
     struct Texture_static_data : public Texture_common_data {
-        using Texture_common_data::Texture_common_data;
-
         std::array<int, 2> crop_dimension = {0, 0};
         std::array<int, 2> crop_position = {0, 0};
     };
 
     struct Texture_animation_data : public Texture_common_data {
-        using Texture_common_data::Texture_common_data;
         std::array<int, 2> sprites_sheet_pos = {0, 0};
         std::array<int, 2> sprites_sheet_dim = {0, 0};
         std::array<int, 2> sprites_dim = {0, 0};
@@ -37,4 +35,10 @@ namespace Game {
         std::array<float, 2> position = {0, 0};
         std::array<float, 2> dimension = {0, 0};
     };
+
+    bool operator==(const Texture_static_data& p1, const Texture_static_data& p2);
+    bool operator!=(const Texture_static_data& p1, const Texture_static_data& p2);
+
+    bool operator==(const Texture_animation_data& p1, const Texture_animation_data& p2);
+    bool operator!=(const Texture_animation_data& p1, const Texture_animation_data& p2);
 }

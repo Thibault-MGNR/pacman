@@ -15,8 +15,9 @@
 
         const Texture_placement set_tp_from_sdl_rect(const SDL_Rect& rect);
 
+        enum class Texture_type {STATIC, ANIMATED};
+
         class Texture {
-            enum class Type {STATIC, ANIMATED};
             public:
                 Texture() = delete;
                 Texture(const Renderer &renderer, Texture_animation_data data);
@@ -30,13 +31,14 @@
                 void set_data(Texture_animation_data data);
                 void set_data(Texture_static_data data);
                 virtual void update_texture();
+                Texture_type get_type();
 
             protected:
                 std::shared_ptr<SDL_Texture> _texture;
                 const Renderer &_renderer;
             
             private:
-                Type _type_of_texture;
+                Texture_type _type_of_texture;
                 Texture_animation_data _data_animation;
                 Texture_static_data _data_static;
         };

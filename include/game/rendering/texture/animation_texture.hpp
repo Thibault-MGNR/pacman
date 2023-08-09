@@ -10,9 +10,9 @@
                 SDL_Texture* get_sdl_texture() override;
                 SDL_Rect get_src_rect() override;
                 void update_texture() override;
+                void update_frame();
 
             private:
-                void _update_frame();
                 int _current_number_frame;
                 int _frame_tick;
                 Texture_placement _current_frame;

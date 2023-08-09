@@ -9,6 +9,35 @@ namespace Game {
         this->_desired_movement = mvt;
     }
 
+    void Character::_update(){
+        if(this->_has_motion_responsive_texture){
+            switch (this->_texture->get_type()) {
+                case Texture_type::STATIC:
+                    _update_static_texture();
+                    break;
+                case Texture_type::ANIMATED:
+                    _update_animated_texture();
+                    break;
+                
+                default:
+                    throw std::runtime_error("Incompatible motion type");
+                    break;
+            }
+        }
+    }
+
+    void Character::_update_static_texture(){
+        if(this->_texture->get_static_data() != this->_motion_responsive_texture_static_data[static_cast<int>(this->_next_movement)]){
+            this->_texture->set_data(this->_motion_responsive_texture_static_data[static_cast<int>(this->_next_movement)]);
+        }
+    }
+
+    void Character::_update_animated_texture(){
+        if(this->_texture->get_animation_data() != this->_motion_responsive_texture_animation_data[static_cast<int>(this->_next_movement)]){
+            this->_texture->set_data(this->_motion_responsive_texture_animation_data[static_cast<int>(this->_next_movement)]);
+        }
+    }
+
     void Character::draw(){
         if(this->_is_displayable){
             for(int i = 0; i < this->speed; i++){
@@ -26,6 +55,7 @@ namespace Game {
                     process_next_movement_with_collision(last_pos);
                 }
             }
+            _update();
             _draw();
         }
     }
