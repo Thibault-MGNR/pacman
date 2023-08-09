@@ -27,7 +27,6 @@ namespace Game {
         using Texture_common_data::Texture_common_data;
         std::array<int, 2> sprites_sheet_pos = {0, 0};
         std::array<int, 2> sprites_sheet_dim = {0, 0};
-        std::array<int, 2> sprites_padding = {0, 0};
         std::array<int, 2> sprites_dim = {0, 0};
         int sprites_number = 0;
         int srites_delay = 50;
