@@ -16,6 +16,7 @@ namespace Game {
         this->_sprites_sheet_grid[1] = (animation_data.sprites_number / this->_sprites_sheet_grid[0]) + 1;
         this->_current_frame.dimension[0] = static_cast<float>(animation_data.sprites_dim[0]);
         this->_current_frame.dimension[1] = static_cast<float>(animation_data.sprites_dim[1]);
+        this->_current_number_frame = 0;
         update_frame();
     }
 

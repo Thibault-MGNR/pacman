@@ -15,7 +15,7 @@ namespace Game {
         data.sprites_sheet_dim = {16, 16};
         data.sprites_sheet_pos = {488, 0};
         this->_texture = std::make_unique<Animation_texture>(renderer, data);
-        
+
         _define_texture();
         this->_has_motion_responsive_texture = true;
         this->collisions_set.insert(2);
@@ -31,6 +31,7 @@ namespace Game {
         data.sprites_sheet_pos = {488, 0};
         data.sprites_sheet_dim = {16, 16};
         data.sprites_number = 1;
+        data.srites_delay = 2000;
     }
 
     void Pac_man::_define_forward_texture(){
