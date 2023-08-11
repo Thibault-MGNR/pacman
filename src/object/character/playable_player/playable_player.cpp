@@ -1,4 +1,4 @@
-#include <game/object/character/playable_player.hpp>
+#include <game/object/character/playable_player/playable_player.hpp>
 #include <SDL2/SDL.h>
 #include <memory>
 #include <iostream>

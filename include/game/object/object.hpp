@@ -23,7 +23,7 @@
                 bool _is_displayable;
                 std::shared_ptr<Map> _map;
                 std::unique_ptr<Texture> _texture;
-                void _draw() const;
+                void _draw();
                 Texture_placement _texture_placement;
         };
     }

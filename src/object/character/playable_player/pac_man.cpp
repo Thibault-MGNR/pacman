@@ -1,5 +1,5 @@
 #include <memory>
-#include <game/object/character/pac_man.hpp>
+#include <game/object/character/playable_player/pac_man.hpp>
 #include <game/rendering/texture/static_texture.hpp>
 #include <game/rendering/texture/animation_texture.hpp>
 
@@ -7,7 +7,7 @@ namespace Game {
     Pac_man::Pac_man(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Playable_player(map, is_diplayable){
         Texture_animation_data data;
         this->_texture_placement.dimension = {25, 25};
-        this->_texture_placement.position = {25, 25};
+        this->_texture_placement.position = {337, 425};
         data.path = "data/spritesheet2.png";
         data.srites_delay = 80;
         data.sprites_number = 1;

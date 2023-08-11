@@ -1,6 +1,6 @@
 #ifndef __PAC_MAN__
     #define __PAC_MAN__
-    #include <game/object/character/playable_player.hpp>
+    #include <game/object/character/playable_player/playable_player.hpp>
 
     namespace Game{
         class Pac_man : public Playable_player{

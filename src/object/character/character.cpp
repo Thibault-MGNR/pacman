@@ -43,13 +43,18 @@ namespace Game {
             for(int i = 0; i < this->speed; i++){
                 std::array<float, 2> last_pos = this->_texture_placement.position;
                 if(this->_desired_movement != Movement::IDLE){
-                    move(this->_desired_movement);
-                    if(map_collision(this->_desired_movement)){
-                        this->_texture_placement.position = last_pos;
-                        process_next_movement_with_collision(last_pos);
+                    float x = this->_texture_placement.position[0];
+                    if(!((x < 10 || x > 690) && (this->_desired_movement == Movement::BACKWARD || this->_desired_movement == Movement::FORWARD))){
+                        move(this->_desired_movement);
+                        if(map_collision(this->_desired_movement)){
+                            this->_texture_placement.position = last_pos;
+                            process_next_movement_with_collision(last_pos);
+                        } else {
+                            this->_next_movement = this->_desired_movement;
+                            this->_desired_movement = Movement::IDLE;
+                        }
                     } else {
-                        this->_next_movement = this->_desired_movement;
-                        this->_desired_movement = Movement::IDLE;
+                        process_next_movement_with_collision(last_pos);
                     }
                 } else {
                     process_next_movement_with_collision(last_pos);
@@ -162,9 +167,13 @@ namespace Game {
             int y = sprites[i].y;
             auto collisions_id{std::begin(this->collisions_set)};
             while(collisions_id != std::end(this->collisions_set)){
-                if(this->_map->get_map()[y][x] == *collisions_id){
-                    if(test_collision(sprites[i].rect))
-                        collision = true;
+                if(x <= 28 && x >= 0 && y <= 31 && y >= 0){
+                    if(!((x == 0) && (y == 14)) && !((x == 28) && (y == 14))){
+                        if(this->_map->get_map()[y][x] == *collisions_id){
+                            if(test_collision(sprites[i].rect))
+                                collision = true;
+                        }
+                    }
                 }
                 collisions_id++;
             }

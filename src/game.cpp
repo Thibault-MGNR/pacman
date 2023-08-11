@@ -24,6 +24,7 @@ namespace Game {
             this->_coins->draw_reward(pac_m_x, pac_m_y);
             this->_pacgums->draw_reward(pac_m_x, pac_m_y);
             this->_pac_man->draw();
+            this->_pinky->draw();
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
 
             this->_fps_manager.manage();
@@ -63,6 +64,7 @@ namespace Game {
         init_pacman();
         init_coins();
         init_pacgums();
+        init_pinky();
     }
 
     void Game::init_pacman(){
@@ -77,5 +79,9 @@ namespace Game {
 
     void Game::init_pacgums(){
         this->_pacgums = std::make_unique<Pacgum>(Pacgum{*this->_renderer, this->_map});
+    }
+
+    void Game::init_pinky(){
+        this->_pinky = std::make_unique<Pinky>(Pinky{*this->_renderer, this->_map});
     }
 }

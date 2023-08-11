@@ -36,7 +36,12 @@ namespace Game {
             _draw();
     }
 
-    void Object::_draw() const{
+    void Object::_draw(){
+        if(this->_texture_placement.position[0] > 701)
+            this->_texture_placement.position[0] = -24;
+        if(this->_texture_placement.position[0] < -25)
+            this->_texture_placement.position[0] = 700;
+            
         const SDL_Rect srcRect = this->_texture->get_src_rect();
         const SDL_Rect dstRect = set_rect(this->_texture_placement.dimension, this->_texture_placement.position);
 
