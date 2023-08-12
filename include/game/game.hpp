@@ -14,6 +14,9 @@
     #include <game/object/reward/coins.hpp>
     #include <game/object/reward/pacgum.hpp>
     #include <game/object/character/non_playable_player/pinky.hpp>
+    #include <game/object/character/non_playable_player/blinky.hpp>
+    #include <game/object/character/non_playable_player/inky.hpp>
+    #include <game/object/character/non_playable_player/clyde.hpp>
     #include <SDL2/SDL.h>
     #include <memory>
 
@@ -35,6 +38,9 @@
                 std::unique_ptr<Coins> _coins;
                 std::unique_ptr<Pacgum> _pacgums;
                 std::unique_ptr<Pinky> _pinky;
+                std::unique_ptr<Inky> _inky;
+                std::unique_ptr<Blinky> _blinky;
+                std::unique_ptr<Clyde> _clyde;
                 bool _run;
                 void quit();
                 void init_window();
@@ -43,7 +49,7 @@
                 void init_pacman();
                 void init_coins();
                 void init_pacgums();
-                void init_pinky();
+                void init_ghosts();
         };
     }
 
