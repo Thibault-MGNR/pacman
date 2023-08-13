@@ -28,6 +28,7 @@ namespace Game {
             this->_blinky->draw();
             this->_clyde->draw();
             this->_inky->draw();
+            this->_inky->draw_path(pac_m_x, pac_m_y);
             SDL_RenderPresent(this->_renderer->get_renderer_ptr());
 
             this->_fps_manager.manage();

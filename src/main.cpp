@@ -7,6 +7,7 @@
 #include <game/map/map.hpp>
 #include <game/events/events_pool.hpp>
 #include <game/errors/SDL_error_handler.hpp>
+#include <game/algorithm_suite/a_star.hpp>
 
 int main(){
     Game::Game game;
