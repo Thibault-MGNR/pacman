@@ -37,7 +37,7 @@ namespace Game {
     }
 
     void Inky::draw_path(int x, int y){
-        this->_path_finder.set_node_start(1, 1);
+        this->_path_finder.set_node_start(1, 14);
         this->_path_finder.set_node_end(x, y);
         this->_path_finder.solve_AStar();
         auto path = this->_path_finder.get_path();

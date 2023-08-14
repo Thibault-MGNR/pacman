@@ -77,6 +77,10 @@ namespace Game {
 					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 0) * nMapWidth + (x - 1)]);
 				if(x<nMapWidth-1)
 					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 0) * nMapWidth + (x + 1)]);
+				if(y == 14 && x == 0)
+					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[14 * nMapWidth + 27]);
+				if(y == 14 && x == 27)
+					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[14 * nMapWidth + 0]);
 			}
 
 		return true;
@@ -107,7 +111,11 @@ namespace Game {
 
 		auto heuristic = [distance](sNode* a, sNode* b)
 		{
-			return distance(a, b);
+			sNode c = *b;
+			sNode d = *b;
+			c.x += 28;
+			d.x -= 28;
+			return std::min(distance(a, b), std::min(distance(a, &c), distance(a, &d)));
 		};
 
 		sNode *nodeCurrent = nodeStart;
@@ -135,7 +143,7 @@ namespace Game {
 				if (!nodeNeighbour->bVisited && nodeNeighbour->bObstacle == 0)
 					listNotTestedNodes.push_back(nodeNeighbour);
 
-				float fPossiblyLowerGoal = nodeCurrent->fLocalGoal + distance(nodeCurrent, nodeNeighbour);
+				float fPossiblyLowerGoal = nodeCurrent->fLocalGoal + heuristic(nodeCurrent, nodeNeighbour);
 
 				if (fPossiblyLowerGoal < nodeNeighbour->fLocalGoal)
 				{

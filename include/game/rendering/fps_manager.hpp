@@ -14,6 +14,7 @@
                 float _last_ticks;
                 float _max_FPS;
                 float _timeout;
+                int _count;
         };
     }
 #endif
