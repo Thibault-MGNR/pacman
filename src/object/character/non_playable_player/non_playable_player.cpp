@@ -37,14 +37,26 @@ namespace Game {
         
         auto targeted_map_pos = this->_path.top();
         auto my_pos = this->_texture_placement.position;
+        bool north = targeted_map_pos.second * 25 < my_pos[1];
+        bool south = targeted_map_pos.second * 25 > my_pos[1];
+        bool east = targeted_map_pos.first * 25 > my_pos[0];
+        bool west = targeted_map_pos.first * 25 < my_pos[0];
 
-        if(targeted_map_pos.first * 25 > my_pos[0])
+        if(east && north)
+            diag_mov(Movement::RIGHT, Movement::FORWARD);
+        else if(east && south)
+            diag_mov(Movement::RIGHT, Movement::BACKWARD);
+        else if(west && north)
+            diag_mov(Movement::LEFT, Movement::FORWARD);
+        else if(west && south)
+            diag_mov(Movement::LEFT, Movement::BACKWARD);
+        else if(east)
             set_movement(Movement::RIGHT);
-        else if(targeted_map_pos.first * 25 < my_pos[0])
+        else if(west)
             set_movement(Movement::LEFT);
-        else if(targeted_map_pos.second * 25 > my_pos[1])
+        else if(south)
             set_movement(Movement::BACKWARD);
-        else if(targeted_map_pos.second * 25 < my_pos[1])
+        else if(north)
             set_movement(Movement::FORWARD);
         else 
             set_movement(Movement::IDLE);
@@ -54,4 +66,18 @@ namespace Game {
         else if(my_pos[0] - targeted_map_pos.first * 25 > 500)
             set_movement(Movement::RIGHT);
     }
+
+     void Non_playable_player::diag_mov(Movement a, Movement b){
+        auto last_pos = this->_texture_placement.position;
+        set_movement(a);
+        move(this->_desired_movement);
+        if(map_collision(this->_desired_movement)){
+            this->_texture_placement.position = last_pos;
+            set_movement(b);
+            move(this->_desired_movement);
+            if(map_collision(this->_desired_movement))
+                set_movement(Movement::IDLE);
+        }
+        this->_texture_placement.position = last_pos;
+     }
 }

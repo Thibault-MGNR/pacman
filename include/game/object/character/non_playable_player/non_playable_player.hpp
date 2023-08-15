@@ -17,5 +17,6 @@ namespace Game {
             std::stack<std::pair<int, int>> _path;
         
         private:
+            void diag_mov(Movement a, Movement b);
     };
 }
