@@ -78,9 +78,10 @@ namespace Game {
 			void set_node_start(int x, int y);
 			void set_node_end(int x, int y);
 			std::stack<std::pair<int, int>> get_path();
+			int get_count();
 
 		private:
-			sNode *nodes = nullptr;
+			sNode *nodes;
 			int nMapWidth = 28;
 			int nMapHeight = 31;
 

@@ -6,7 +6,6 @@ namespace Game {
         public:
             Inky() = delete;
             Inky(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable = true);
-            void draw_path(int x, int y);
         
         private:
             void _define_idle_texture() override;

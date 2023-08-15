@@ -27,22 +27,25 @@ namespace Game {
     }
 
     void Character::_update_static_texture(){
-        if(this->_texture->get_static_data() != this->_motion_responsive_texture_static_data[static_cast<int>(this->_next_movement)]){
-            this->_texture->set_data(this->_motion_responsive_texture_static_data[static_cast<int>(this->_next_movement)]);
+        Movement drawing_movement = (this->_next_movement == Movement::NONE) ? Movement::IDLE : this->_next_movement;
+        if(this->_texture->get_static_data() != this->_motion_responsive_texture_static_data[static_cast<int>(drawing_movement)]){
+            this->_texture->set_data(this->_motion_responsive_texture_static_data[static_cast<int>(drawing_movement)]);
         }
     }
 
     void Character::_update_animated_texture(){
-        if(this->_texture->get_animation_data() != this->_motion_responsive_texture_animation_data[static_cast<int>(this->_next_movement)]){
-            this->_texture->set_data(this->_motion_responsive_texture_animation_data[static_cast<int>(this->_next_movement)]);
+        Movement drawing_movement = (this->_next_movement == Movement::NONE) ? Movement::IDLE : this->_next_movement;
+        if(this->_texture->get_animation_data() != this->_motion_responsive_texture_animation_data[static_cast<int>(drawing_movement)]){
+            this->_texture->set_data(this->_motion_responsive_texture_animation_data[static_cast<int>(drawing_movement)]);
         }
     }
 
     void Character::draw(){
         if(this->_is_displayable){
             for(int i = 0; i < this->speed; i++){
-                std::array<float, 2> last_pos = this->_texture_placement.position;
-                if(this->_desired_movement != Movement::IDLE){
+                update_movement();
+                auto last_pos = this->_texture_placement.position;
+                if(this->_desired_movement != Movement::NONE){
                     float x = this->_texture_placement.position[0];
                     if(!((x < 10 || x > 690) && (this->_desired_movement == Movement::BACKWARD || this->_desired_movement == Movement::FORWARD))){
                         move(this->_desired_movement);
@@ -51,7 +54,7 @@ namespace Game {
                             process_next_movement_with_collision(last_pos);
                         } else {
                             this->_next_movement = this->_desired_movement;
-                            this->_desired_movement = Movement::IDLE;
+                            this->_desired_movement = Movement::NONE;
                         }
                     } else {
                         process_next_movement_with_collision(last_pos);
@@ -69,8 +72,8 @@ namespace Game {
         move(this->_next_movement);
         if(map_collision(this->_next_movement)){
             this->_texture_placement.position = last_pos;
-            this->_next_movement = Movement::IDLE;
-            this->_desired_movement = Movement::IDLE;
+            this->_next_movement = Movement::NONE;
+            this->_desired_movement = Movement::NONE;
         }
     }
     
@@ -180,4 +183,6 @@ namespace Game {
         }
         return collision;
     }
+
+    void Character::update_movement(){}
 }

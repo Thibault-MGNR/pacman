@@ -16,7 +16,7 @@ namespace Game {
             if(SDL_RenderClear(this->_renderer->get_renderer_ptr()) < 0){
                 Exit_with_error();
             }
-
+            
             this->_map->draw();
             int pac_m_x = this->_pac_man->get_map_pos()[0];
             int pac_m_y = this->_pac_man->get_map_pos()[1];

@@ -55,54 +55,59 @@ namespace Game {
 	
 	bool Path_finding::create(std::shared_ptr<Map> map) {
 		auto map_grid = map->get_map(); 
-		nodes = new sNode[nMapWidth * nMapHeight];
-		for (int x = 0; x < nMapWidth; x++)
-			for (int y = 0; y < nMapHeight; y++)
-			{
-				nodes[y * nMapWidth + x].x = x;
-				nodes[y * nMapWidth + x].y = y;
-				nodes[y * nMapWidth + x].bObstacle = map_grid[y][x] == 1;
-				nodes[y * nMapWidth + x].parent = nullptr;
-				nodes[y * nMapWidth + x].bVisited = false;
-			}
+
+		nodes = new sNode[this->nMapWidth * this->nMapHeight];
 
 		for (int x = 0; x < nMapWidth; x++)
 			for (int y = 0; y < nMapHeight; y++)
 			{
+				this->nodes[y * nMapWidth + x].x = x;
+				this->nodes[y * nMapWidth + x].y = y;
+				this->nodes[y * nMapWidth + x].bObstacle = map_grid[y][x] == 1;
+				this->nodes[y * nMapWidth + x].parent = nullptr;
+				this->nodes[y * nMapWidth + x].bVisited = false;
+			}
+		
+		for (int x = 0; x < nMapWidth; x++)
+			for (int y = 0; y < nMapHeight; y++)
+			{
 				if(y>0)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y - 1) * nMapWidth + (x + 0)]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[(y - 1) * nMapWidth + (x + 0)]);
 				if(y<nMapHeight-1)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 1) * nMapWidth + (x + 0)]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[(y + 1) * nMapWidth + (x + 0)]);
 				if (x>0)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 0) * nMapWidth + (x - 1)]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[(y + 0) * nMapWidth + (x - 1)]);
 				if(x<nMapWidth-1)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[(y + 0) * nMapWidth + (x + 1)]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[(y + 0) * nMapWidth + (x + 1)]);
 				if(y == 14 && x == 0)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[14 * nMapWidth + 27]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[14 * nMapWidth + 27]);
 				if(y == 14 && x == 27)
-					nodes[y*nMapWidth + x].vecNeighbours.push_back(&nodes[14 * nMapWidth + 0]);
+					this->nodes[y*nMapWidth + x].vecNeighbours.push_back(&this->nodes[14 * nMapWidth + 0]);
 			}
 
 		return true;
 	}
 
 	void Path_finding::set_node_start(int x, int y){
-		nodeStart = &nodes[y * nMapWidth + x];
+		nodeStart = &this->nodes[y * nMapWidth + x];
 	}
 
 	void Path_finding::set_node_end(int x, int y){
-		nodeEnd = &nodes[y * nMapWidth + x];
+		nodeEnd = &this->nodes[y * nMapWidth + x];
 	}
 
 	bool Path_finding::solve_AStar() {
 		for (int x = 0; x < nMapWidth; x++)
 			for (int y = 0; y < nMapHeight; y++)
 			{
-				nodes[y*nMapWidth + x].bVisited = false;
-				nodes[y*nMapWidth + x].fGlobalGoal = std::numeric_limits<float>::infinity();
-				nodes[y*nMapWidth + x].fLocalGoal = std::numeric_limits<float>::infinity();
-				nodes[y*nMapWidth + x].parent = nullptr;
+				this->nodes[y*nMapWidth + x].bVisited = false;
+				this->nodes[y*nMapWidth + x].fGlobalGoal = std::numeric_limits<float>::infinity();
+				this->nodes[y*nMapWidth + x].fLocalGoal = std::numeric_limits<float>::infinity();
+				this->nodes[y*nMapWidth + x].parent = nullptr;
 			}
+		
+		if(nodeStart == nodeEnd)
+			return true;
 
 		auto distance = [](sNode* a, sNode* b)
 		{
@@ -152,7 +157,7 @@ namespace Game {
 
 					nodeNeighbour->fGlobalGoal = nodeNeighbour->fLocalGoal + heuristic(nodeNeighbour, nodeEnd);
 				}
-			}	
+			}
 		}
 
 		return true;

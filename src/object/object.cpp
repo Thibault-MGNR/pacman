@@ -55,6 +55,8 @@ namespace Game {
         int half = this->_texture_placement.dimension[0] / 2;
         pos[0] = (this->_texture_placement.position[0] + half) / 3.125 / 8;
         pos[1] = (this->_texture_placement.position[1] + half) / 3.125 / 8;
+        if(pos[0] > 27 || pos[0] < 0)
+            pos[0] = 0;
         return pos;
     }
 }

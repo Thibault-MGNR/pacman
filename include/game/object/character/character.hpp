@@ -10,7 +10,8 @@
             FORWARD,
             BACKWARD,
             LEFT,
-            RIGHT
+            RIGHT,
+            NONE
         };
 
         class Character : public Object{
@@ -18,6 +19,7 @@
                 using Object::Object;
                 void set_movement(const Movement mvt) noexcept;
                 void draw() override;
+                virtual void update_movement();
             
             protected:
                 std::set<int> collisions_set{1};
@@ -25,14 +27,14 @@
                 std::array<Texture_animation_data, 5> _motion_responsive_texture_animation_data;
                 std::array<Texture_static_data, 5> _motion_responsive_texture_static_data;
                 void _update();
+                float speed = 2;
 
             private:
                 void _update_static_texture();
                 void _update_animated_texture();
                 bool map_collision(Movement mov);
-                Movement _next_movement = Movement::IDLE;
-                Movement _desired_movement = Movement::IDLE;
-                const float speed = 2;
+                Movement _next_movement = Movement::NONE;
+                Movement _desired_movement = Movement::NONE;
                 bool check_map_collision_forward(int x_m, int y_m);
                 bool check_map_collision_backward(int x_m, int y_m);
                 bool check_map_collision_right(int x_m, int y_m);
