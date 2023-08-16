@@ -3,7 +3,7 @@
 
 namespace Game {
     Inky::Inky(const Renderer &renderer, std::shared_ptr<Map> map, bool is_diplayable) : Ghost(renderer, map, is_diplayable) {
-        this->speed = 1;
+        this->speed = 2.1;
         Texture_animation_data data = this->_texture->get_animation_data();
         this->_texture_placement.position = {387, 350};
         data.sprites_sheet_pos = {464, 176};

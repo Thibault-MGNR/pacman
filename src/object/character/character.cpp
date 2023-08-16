@@ -3,6 +3,7 @@
 #include <iostream>
 #include <array>
 #include <iterator>
+#include <cmath>
 
 namespace Game {
     void Character::set_movement(const Movement mvt) noexcept{
@@ -40,9 +41,29 @@ namespace Game {
         }
     }
 
+    int Character::fluid_displacement(){
+        int additional_pixel = 0;
+        this->_tenth_of_speed = static_cast<int>(std::floor(this->speed * 10)) % 10;
+        this->_frame_count++;
+
+        float tenth = static_cast<float>(this->_tenth_of_speed) / 10;
+        if(tenth * this->_frame_count > this->pixels_moved){
+            additional_pixel = 1;
+            this->pixels_moved++;
+        }
+
+        if(this->_frame_count >= 10){
+            this->_frame_count = 0;
+            this->pixels_moved = 0;
+        }
+        return additional_pixel;
+    }
+
     void Character::draw(){
+        int additional_pixel = fluid_displacement();
+
         if(this->_is_displayable){
-            for(int i = 0; i < this->speed; i++){
+            for(int i = 0; i < static_cast<int>(this->speed) + additional_pixel; i++){
                 update_movement();
                 auto last_pos = this->_texture_placement.position;
                 if(this->_desired_movement != Movement::NONE){

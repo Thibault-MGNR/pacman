@@ -34,6 +34,9 @@
                 Movement _desired_movement = Movement::NONE;
 
             private:
+                int _tenth_of_speed;
+                int _frame_count = 0;
+                int pixels_moved = 0;
                 void _update_static_texture();
                 void _update_animated_texture();
                 bool check_map_collision_forward(int x_m, int y_m);
@@ -42,6 +45,7 @@
                 bool check_map_collision_left(int x_m, int y_m);
                 bool check_map_sprites_collisions(std::array<Map_sprite, 3> sprites);
                 void process_next_movement_with_collision(std::array<float, 2> last_pos);
+                int fluid_displacement();
         };
     }
 #endif
